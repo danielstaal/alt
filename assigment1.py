@@ -61,14 +61,14 @@ def phrase_extraction(sen1, sen2, alignments):
 
 
 
-def create_dicts(en_txt,de_txt,alignments):
+def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	en_dic = {}
 	de_dic = {}
 	en_de_dic = {}
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[:5000], de_txt[:5000], alignments[:5000]):	
+	for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -136,7 +136,7 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic = create_dicts(en_txt,de_txt,alignments)
+	en_dic,de_dic,al_dic = create_dicts(en_txt,de_txt,alignments, 5000)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
