@@ -32,11 +32,13 @@ def phrase_extraction(sen1, sen2, alignments):
 
 	# we do not want subphrases longer than 5
 	# TODO does not work yet
+	#print(smallest_seg)
 	range_up_to_five = len(smallest_seg)
 
 	en_sub_phrases = []
 	de_sub_phrases = []
 	aligned_sub_phrases = []
+	seg_aligned_sub_phrases = []
 	
 	for i, element in enumerate(smallest_seg):
 		if range_up_to_five - i > 5:
@@ -56,8 +58,13 @@ def phrase_extraction(sen1, sen2, alignments):
 			en_sub_phrases.append(en_strings)
 			de_sub_phrases.append(de_strings)
 			aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
+			seg_aligned_sub_phrases.append(aligned_words)
+			#print(aligned_words)
+			#print(en_strings)
+			#print(de_strings)
+			#print('------------------------------')
 
-	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases
+	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases
 
 
 
@@ -65,6 +72,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	en_dic = {}
 	de_dic = {}
 	en_de_dic = {}
+	aligns_dic = {}
 
 	j = 0
 	k = 0
@@ -77,7 +85,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 		alignment = alignment.split()#.split('-')
 		for i, el in enumerate(alignment):
 			alignment[i] = el.split('-')
-		en_sub_phrases, de_sub_phrases, aligned_sub_phrases = phrase_extraction(en_sen[0:-1], de_sen[0:-1], alignment)
+		en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases = phrase_extraction(en_sen[0:-1], de_sen[0:-1], alignment)
 		
 		# if k == 0:
 		# 	print(en_sub_phrases)
@@ -85,7 +93,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 		# 	print(aligned_sub_phrases)
 		# 	k += 1
 
-		for en, de, al in zip(en_sub_phrases, de_sub_phrases, aligned_sub_phrases):
+		for en, de, al, alignments in zip(en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases):
 			if en in en_dic:
 				en_dic[en] += 1
 			else:
@@ -98,12 +106,15 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 				en_de_dic["".join(al)] += 1
 			else:
 				en_de_dic["".join(al)] = 1
+				# Stores alignments of the sub_phrase. Used in lexical_translation_probabilities(). Example:
+				# aligns_dic["session of the ^ sitzungsperiode des"] = [['sitzungsperiode', 'session'], ['des', 'of the']]
+				aligns_dic["".join(al)] = alignments
 			
 	# print(len(en_dic))
 	# print(len(de_dic))
 	# print(len(en_de_dic))
 
-	return en_dic,de_dic,en_de_dic
+	return en_dic,de_dic,en_de_dic,aligns_dic
 
 def translation_probabilities(en_dic,de_dic,al_dic):
 
@@ -127,41 +138,64 @@ def translation_probabilities(en_dic,de_dic,al_dic):
 
 	return trans_probs
 
-def lexical_translation_probabilities(en_dic,de_dic,al_dic,alignments):
+def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic):
+
+	# this contains lexical translation probabilities in both directions in the shape of:
+	# lex_trans_prob[en + ' - ' + de] = [l_en_given_de, l_de_given_en]
+	lex_trans_probs = {}
+
 	# count appeareance of single words aligned to other single words:
-	# english to foreign lexical trans prob dictionary
-	wef = {}
-	# foreign to english lexical trans prob dictionary
-	wfe = {}
+	# count of appeareance of single words alignments in different languages
+	count_ef = {}
 	# appearance of single words (english)
 	we = {}
 	# appearance of single words (deutsch)
 	wf = {}
 
-	#TODO pu this in create_dics, so its more efficient?
+	#TODO put this in create_dics, so its more efficient?
+	# words counting not working atm (PHRASE -> SUB_PHRASES -> COUNTS APPEAREANCES IN SUB_PHRASES ATM)
 	for pairs,counts in al_dic.items():
 		[en,de] = pairs.split(" ^ ")
 		en_split = en.split()
 		de_split = de.split()
-		if len(en_split) == 1 and len(de_split) == 1:
-			ende = en_split + ' ' + de_split
-			wef[ende] = wef.get(ende, 0) + 1
-			deen = de_split + ' ' + en_split
-			wfe[deen] = wef.get(deen, 0) + 1
-			we[en_split] = we.get(en_split, 0) + 1
-			wf[de_split] = wf.get(de_split, 0) + 1
-
-		elif len(en_split) == 1:
+		for en_word in en_split:
 			for de_word in de_split:
-				ende = en_split + ' ' + de_word
-				wef[ende] = wef.get(ende, 0) + 1
-			we[en_split] = we.get(en_split, 0) + 1
+				ende = en_word + ' ' + de_word
+				count_ef[ende] = count_ef.get(ende, 0) + 1
 
-		elif len(de_split) == 1:
+		for en_word in en_split:
+			we[en_word] = we.get(en_word, 0) + 1
+
+		for de_word in de_split:
+			wf[de_word] = wf.get(de_word, 0) + 1
+
+	for pairs,counts in al_dic.items():
+		alignments = aligns_dic[pairs]# e.g.: alignments = [['wiederaufnahme', 'resumption'], ['der', 'of the'], ['sitzungsperiode', 'session']]
+		[en,de] = pairs.split(" ^ ")
+		l_en_given_de = 1
+		l_de_given_en = 1
+		for align in alignments:
+			en_split = align[1].split()
+			de_split = align[0].split()
+			len_en_split = len(en_split)
+			len_de_split = len(de_split)
+
 			for en_word in en_split:
-				deen = de_split + ' ' + en_word
-				wef[deen] = wef.get(deen, 0) + 1
-			wf[de_split] = wf.get(de_split, 0) + 1
+				aux_ef = 0
+				for de_word in de_split:
+					aux_ef += count_ef[en_word + ' ' + de_word]/we[en_word]
+				l_en_given_de *= aux_ef/len_de_split
+
+			for de_word in de_split:
+				aux_ef = 0
+				for en_word in en_split:
+					aux_ef += count_ef[en_word + ' ' + de_word]/wf[de_word]
+				l_de_given_en *= aux_ef/len_en_split
+
+		lex_trans_probs[en + ' - ' + de] = [l_en_given_de, l_de_given_en]
+
+
+	return lex_trans_probs
 
 if __name__ == '__main__':
 
@@ -172,7 +206,7 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic = create_dicts(en_txt,de_txt,alignments, 5000)
+	en_dic,de_dic,al_dic,aligns_dic = create_dicts(en_txt,de_txt,alignments, 2)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
