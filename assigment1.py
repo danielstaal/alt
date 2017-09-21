@@ -49,8 +49,8 @@ def phrase_extraction(sen1, sen2, alignments):
 			aligned_words = smallest_seg[i:index] 
 			
 			for sub in aligned_words:
-				en_strings += sub[1]  + " "
-				de_strings += sub[0]  + " "
+				en_strings += sub[1] + " "
+				de_strings += sub[0] + " "
 			en_strings = en_strings[:-1]
 			de_strings = de_strings[:-1]
 			en_sub_phrases.append(en_strings)
@@ -126,6 +126,42 @@ def translation_probabilities(en_dic,de_dic,al_dic):
 		# trans_probs[en + ' - ' + de] = [counts, en_count, de_count]
 
 	return trans_probs
+
+def lexical_translation_probabilities(en_dic,de_dic,al_dic,alignments):
+	# count appeareance of single words aligned to other single words:
+	# english to foreign lexical trans prob dictionary
+	wef = {}
+	# foreign to english lexical trans prob dictionary
+	wfe = {}
+	# appearance of single words (english)
+	we = {}
+	# appearance of single words (deutsch)
+	wf = {}
+
+	#TODO pu this in create_dics, so its more efficient?
+	for pairs,counts in al_dic.items():
+		[en,de] = pairs.split(" ^ ")
+		en_split = en.split()
+		de_split = de.split()
+		if len(en_split) == 1 and len(de_split) == 1:
+			ende = en_split + ' ' + de_split
+			wef[ende] = wef.get(ende, 0) + 1
+			deen = de_split + ' ' + en_split
+			wfe[deen] = wef.get(deen, 0) + 1
+			we[en_split] = we.get(en_split, 0) + 1
+			wf[de_split] = wf.get(de_split, 0) + 1
+
+		elif len(en_split) == 1:
+			for de_word in de_split:
+				ende = en_split + ' ' + de_word
+				wef[ende] = wef.get(ende, 0) + 1
+			we[en_split] = we.get(en_split, 0) + 1
+
+		elif len(de_split) == 1:
+			for en_word in en_split:
+				deen = de_split + ' ' + en_word
+				wef[deen] = wef.get(deen, 0) + 1
+			wf[de_split] = wf.get(de_split, 0) + 1
 
 if __name__ == '__main__':
 
