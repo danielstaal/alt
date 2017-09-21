@@ -28,6 +28,8 @@ def phrase_extraction(sen1, sen2, alignments):
 		if [left, right] not in smallest_seg:
 			smallest_seg.append([left,right])
 
+	# print(smallest_seg)
+
 	# we do not want subphrases longer than 5
 	# TODO does not work yet
 	range_up_to_five = len(smallest_seg)
@@ -37,7 +39,7 @@ def phrase_extraction(sen1, sen2, alignments):
 	aligned_sub_phrases = []
 	
 	for i, element in enumerate(smallest_seg):
-		if i - range_up_to_five > 5:
+		if range_up_to_five - i > 5:
 			range_up_to_five = i + 5
 
 		for index in range(i+1,range_up_to_five+1):
@@ -66,7 +68,7 @@ def create_dicts(en_txt,de_txt,alignments):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[:100], de_txt[:100], alignments[:100]):	
+	for en_sen, de_sen, alignment in zip(en_txt[:5000], de_txt[:5000], alignments[:5000]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -121,6 +123,7 @@ def translation_probabilities(en_dic,de_dic,al_dic):
 		p_en_given_de = float(counts)/de_count
 
 		trans_probs[en + ' - ' + de] = [p_en_given_de, p_de_given_en]
+		# trans_probs[en + ' - ' + de] = [counts, en_count, de_count]
 
 	return trans_probs
 
@@ -137,8 +140,9 @@ if __name__ == '__main__':
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
-	rn = random.choice(list(trans_probs))
-	print(rn)
-	print(trans_probs[rn])
-	# print(trans_probs)
+	for i in range(10):
+		rn = random.choice(list(trans_probs))
+		print(rn)
+		print(trans_probs[rn])
+	# print(en_dic)
 
