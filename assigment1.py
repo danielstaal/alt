@@ -73,6 +73,10 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	de_dic = {}
 	en_de_dic = {}
 	aligns_dic = {}
+	# KMO dictionaries
+	count_ef = {}# count of appeareances of single words aligned to other language words
+	we = {}# appearance of single words (english)
+	wf = {}# appearance of single words (deutsch)
 
 	j = 0
 	k = 0
@@ -114,7 +118,21 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	# print(len(de_dic))
 	# print(len(en_de_dic))
 
-	return en_dic,de_dic,en_de_dic,aligns_dic
+	# words counting not working atm (PHRASE -> SUB_PHRASES -> COUNTS APPEAREANCES IN SUB_PHRASES ATM)
+	for pairs,counts in en_de_dic.items():
+		[en,de] = pairs.split(" ^ ")
+		en_split = en.split()
+		de_split = de.split()
+		for en_word in en_split:
+			for de_word in de_split:
+				ende = en_word + ' ' + de_word
+				count_ef[ende] = count_ef.get(ende, 0) + 1
+		for en_word in en_split:
+			we[en_word] = we.get(en_word, 0) + 1
+		for de_word in de_split:
+			wf[de_word] = wf.get(de_word, 0) + 1
+
+	return en_dic,de_dic,en_de_dic,aligns_dic,count_ef,we,wf
 
 def translation_probabilities(en_dic,de_dic,al_dic):
 
@@ -138,36 +156,11 @@ def translation_probabilities(en_dic,de_dic,al_dic):
 
 	return trans_probs
 
-def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic):
+def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf):
 
 	# this contains lexical translation probabilities in both directions in the shape of:
 	# lex_trans_prob[en + ' - ' + de] = [l_en_given_de, l_de_given_en]
 	lex_trans_probs = {}
-
-	# count appeareance of single words aligned to other single words:
-	# count of appeareance of single words alignments in different languages
-	count_ef = {}
-	# appearance of single words (english)
-	we = {}
-	# appearance of single words (deutsch)
-	wf = {}
-
-	#TODO put this in create_dics, so its more efficient?
-	# words counting not working atm (PHRASE -> SUB_PHRASES -> COUNTS APPEAREANCES IN SUB_PHRASES ATM)
-	for pairs,counts in al_dic.items():
-		[en,de] = pairs.split(" ^ ")
-		en_split = en.split()
-		de_split = de.split()
-		for en_word in en_split:
-			for de_word in de_split:
-				ende = en_word + ' ' + de_word
-				count_ef[ende] = count_ef.get(ende, 0) + 1
-
-		for en_word in en_split:
-			we[en_word] = we.get(en_word, 0) + 1
-
-		for de_word in de_split:
-			wf[de_word] = wf.get(de_word, 0) + 1
 
 	for pairs,counts in al_dic.items():
 		alignments = aligns_dic[pairs]# e.g.: alignments = [['wiederaufnahme', 'resumption'], ['der', 'of the'], ['sitzungsperiode', 'session']]
@@ -183,17 +176,16 @@ def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic):
 			for en_word in en_split:
 				aux_ef = 0
 				for de_word in de_split:
-					aux_ef += count_ef[en_word + ' ' + de_word]/we[en_word]
+					aux_ef += float(count_ef[en_word + ' ' + de_word])/we[en_word]
 				l_en_given_de *= aux_ef/len_de_split
 
 			for de_word in de_split:
 				aux_ef = 0
 				for en_word in en_split:
-					aux_ef += count_ef[en_word + ' ' + de_word]/wf[de_word]
+					aux_ef += float(count_ef[en_word + ' ' + de_word])/wf[de_word]
 				l_de_given_en *= aux_ef/len_en_split
 
 		lex_trans_probs[en + ' - ' + de] = [l_en_given_de, l_de_given_en]
-
 
 	return lex_trans_probs
 
@@ -206,7 +198,7 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic,aligns_dic = create_dicts(en_txt,de_txt,alignments, 2)
+	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 5000)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
@@ -215,4 +207,11 @@ if __name__ == '__main__':
 		print(rn)
 		print(trans_probs[rn])
 	# print(en_dic)
+	print('----------------------------------------------')
 
+	lex_trans_probs = lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf)
+
+	for i in range(10):
+		rn = random.choice(list(lex_trans_probs))
+		print(rn)
+		print(lex_trans_probs[rn])
