@@ -60,7 +60,6 @@ def phrase_extraction(sen1, sen2, alignments):
 	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases
 
 
-
 def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	en_dic = {}
 	de_dic = {}
