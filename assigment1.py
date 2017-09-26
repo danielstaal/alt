@@ -61,8 +61,9 @@ def phrase_extraction(sen1, sen2, alignments):
 			de_strings = de_strings[:-1]
 			if en_strings not in en_sub_phrases: en_sub_phrases.append(en_strings)
 			if de_strings not in de_sub_phrases: de_sub_phrases.append(de_strings)
-			if en_strings + ' ^ ' + de_strings not in aligned_sub_phrases: aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
-			seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
+			if en_strings + ' ^ ' + de_strings not in aligned_sub_phrases:
+				aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
+				seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
 			#print(aligned_words)
 			#print(en_strings)
 			#print(de_strings)
@@ -127,7 +128,6 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 		# 	print(de_sub_phrases)
 		# 	print(aligned_sub_phrases)
 		# 	k += 1
-
 
 		for en in en_sub_phrases:
 			if en in en_dic:
