@@ -31,7 +31,6 @@ def phrase_extraction(sen1, sen2, alignments):
 		if [left, right] not in smallest_seg:
 			smallest_seg.append([left,right])
 
-	#print(smallest_seg)
 
 	# we do not want subphrases longer than 5
 	# TODO does not work yet
@@ -112,7 +111,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[4428:4429], de_txt[4428:4429], alignments[4428:4429]):	
+	for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -129,7 +128,26 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 		# 	print(aligned_sub_phrases)
 		# 	k += 1
 
-		for en, de, al, alignments in zip(en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases):
+
+		for en in en_sub_phrases:
+			if en in en_dic:
+				en_dic[en] += 1
+			else:
+				en_dic[en] = 1
+		for de in de_sub_phrases:
+			if de in de_dic:
+				de_dic[de] += 1
+			else:
+				de_dic[de] = 1
+		for al, alignments in zip(aligned_sub_phrases, seg_aligned_sub_phrases):
+			if al in en_de_dic:
+				en_de_dic["".join(al)] += 1
+			else:
+				en_de_dic["".join(al)] = 1
+				# Stores alignments of the sub_phrase. Used in lexical_translation_probabilities(). Example:
+				# aligns_dic["session of the ^ sitzungsperiode des"] = [['sitzungsperiode', 'session'], ['des', 'of the']]
+				aligns_dic["".join(al)] = alignments
+		'''for en, de, al, alignments in zip(en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases):
 			if en in en_dic:
 				en_dic[en] += 1
 			else:
@@ -144,7 +162,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 				en_de_dic["".join(al)] = 1
 				# Stores alignments of the sub_phrase. Used in lexical_translation_probabilities(). Example:
 				# aligns_dic["session of the ^ sitzungsperiode des"] = [['sitzungsperiode', 'session'], ['des', 'of the']]
-				aligns_dic["".join(al)] = alignments
+				aligns_dic["".join(al)] = alignments'''
 			
 	# print(len(en_dic))
 	# print(len(de_dic))
@@ -204,13 +222,11 @@ def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,w
 			de_split = align[0].split()
 			len_en_split = len(en_split)
 			len_de_split = len(de_split)
-
 			for en_word in en_split:
 				aux_ef = 0
 				for de_word in de_split:
 					aux_ef += float(count_ef.get(en_word + ' ' + de_word, 0))/we[en_word]
 				l_en_given_de *= aux_ef/len_de_split
-
 			for de_word in de_split:
 				aux_ef = 0
 				for en_word in en_split:
@@ -230,7 +246,7 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 1)
+	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 5000)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
