@@ -1,4 +1,5 @@
 import random
+from copy import deepcopy
 
 # phrase_extraction('resumption of the session', 'wiederaufnahme der sitzungsperiode', [[0,0], [1,1], [1,2], [2,3]])
 
@@ -10,9 +11,9 @@ import random
 def phrase_extraction(sen1, sen2, alignments):
 	sen1_words = sen1.split(" ")
 	sen2_words = sen2.split(" ")
-	print(sen1)
-	print(sen2)
-	print(alignments)
+	#print(sen1)
+	#print(sen2)
+	#print(alignments)
 
 	smallest_seg = []
 	for a in alignments:
@@ -30,7 +31,7 @@ def phrase_extraction(sen1, sen2, alignments):
 		if [left, right] not in smallest_seg:
 			smallest_seg.append([left,right])
 
-	print(smallest_seg)
+	#print(smallest_seg)
 
 	# we do not want subphrases longer than 5
 	# TODO does not work yet
@@ -50,8 +51,8 @@ def phrase_extraction(sen1, sen2, alignments):
 			de_strings = ''
 			en_strings = ''
 			# TODO make sure the longest subphrase is 5 words
-			aligned_words = smallest_seg[i:index] 
-			
+			aligned_words = smallest_seg[i:index]
+
 			for sub in aligned_words:
 				en_strings = add_string_if_it_doesnt_contain_reps(sub[1], en_strings)
 				de_strings = add_string_if_it_doesnt_contain_reps(sub[0], de_strings)
@@ -62,14 +63,14 @@ def phrase_extraction(sen1, sen2, alignments):
 			if en_strings not in en_sub_phrases: en_sub_phrases.append(en_strings)
 			if de_strings not in de_sub_phrases: de_sub_phrases.append(de_strings)
 			if en_strings + ' ^ ' + de_strings not in aligned_sub_phrases: aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
-			seg_aligned_sub_phrases.append(aligned_words)
+			seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
 			#print(aligned_words)
 			#print(en_strings)
 			#print(de_strings)
 			#print('------------------------------')
-	print(en_sub_phrases)
-	print(de_sub_phrases)
-	print(aligned_sub_phrases)
+	#print(en_sub_phrases)
+	#print(de_sub_phrases)
+	#print(aligned_sub_phrases)
 
 	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases
 
@@ -88,6 +89,17 @@ def translate_numbers_to_words(string, sentence_words):
 		aux_string += sentence_words[int(substring)] + " "
 	return aux_string
 
+def translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words):
+	aux = deepcopy(aligned_words)
+	for i in range(len(aligned_words)):
+		for j in range(len(aligned_words[i])):
+			aux_string = ""
+			for substring in aligned_words[i][j].split():
+				if j == 0: aux_string += sen2_words[int(substring)] + " "
+				elif j == 1: aux_string += sen1_words[int(substring)] + " "
+			aux[i][j] = aux_string[:-1]
+	return aux
+
 def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	en_dic = {}
 	de_dic = {}
@@ -100,7 +112,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[1338:1339], de_txt[1338:1339], alignments[1338:1339]):	
+	for en_sen, de_sen, alignment in zip(en_txt[4428:4429], de_txt[4428:4429], alignments[4428:4429]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -196,13 +208,13 @@ def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,w
 			for en_word in en_split:
 				aux_ef = 0
 				for de_word in de_split:
-					aux_ef += float(count_ef[en_word + ' ' + de_word])/we[en_word]
+					aux_ef += float(count_ef.get(en_word + ' ' + de_word, 0))/we[en_word]
 				l_en_given_de *= aux_ef/len_de_split
 
 			for de_word in de_split:
 				aux_ef = 0
 				for en_word in en_split:
-					aux_ef += float(count_ef[en_word + ' ' + de_word])/wf[de_word]
+					aux_ef += float(count_ef.get(en_word + ' ' + de_word, 0))/wf[de_word]
 				l_de_given_en *= aux_ef/len_en_split
 
 		lex_trans_probs[en + ' - ' + de] = [l_en_given_de, l_de_given_en]
@@ -222,16 +234,16 @@ if __name__ == '__main__':
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
-	# for i in range(10):
-	# 	rn = random.choice(list(trans_probs))
-	# 	print(rn)
-	# 	print(trans_probs[rn])
-	# # print(en_dic)
-	# print('----------------------------------------------')
+	for i in range(10):
+	 	rn = random.choice(list(trans_probs))
+	 	print(rn)
+	 	print(trans_probs[rn])
+	# print(en_dic)
+	print('----------------------------------------------')
 
-	# lex_trans_probs = lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf)
+	lex_trans_probs = lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf)
 
-	# for i in range(10):
-	# 	rn = random.choice(list(lex_trans_probs))
-	# 	print(rn)
-	# 	print(lex_trans_probs[rn])
+	for i in range(10):
+	 	rn = random.choice(list(lex_trans_probs))
+	 	print(rn)
+	 	print(lex_trans_probs[rn])
