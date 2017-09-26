@@ -10,9 +10,9 @@ import random
 def phrase_extraction(sen1, sen2, alignments):
 	sen1_words = sen1.split(" ")
 	sen2_words = sen2.split(" ")
-	# print(sen1)
-	# print(sen2)
-	# print(alignments)
+	print(sen1)
+	print(sen2)
+	print(alignments)
 
 	smallest_seg = []
 	for a in alignments:
@@ -63,6 +63,9 @@ def phrase_extraction(sen1, sen2, alignments):
 			#print(en_strings)
 			#print(de_strings)
 			#print('------------------------------')
+	print(en_sub_phrases)
+	print(de_sub_phrases)
+	print(aligned_sub_phrases)
 
 	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases
 
@@ -79,7 +82,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
+	for en_sen, de_sen, alignment in zip(en_txt[1338:1339], de_txt[1338:1339], alignments[1338:1339]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -88,7 +91,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 		alignment = alignment.split()#.split('-')
 		for i, el in enumerate(alignment):
 			alignment[i] = el.split('-')
-		en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases = phrase_extraction(en_sen[0:-1], de_sen[0:-1], alignment)
+		en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases = phrase_extraction(en_sen[:-1], de_sen[:-1], alignment)
 		
 		# if k == 0:
 		# 	print(en_sub_phrases)
@@ -197,20 +200,20 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 5000)
+	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 1)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
-	for i in range(10):
-		rn = random.choice(list(trans_probs))
-		print(rn)
-		print(trans_probs[rn])
-	# print(en_dic)
-	print('----------------------------------------------')
+	# for i in range(10):
+	# 	rn = random.choice(list(trans_probs))
+	# 	print(rn)
+	# 	print(trans_probs[rn])
+	# # print(en_dic)
+	# print('----------------------------------------------')
 
-	lex_trans_probs = lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf)
+	# lex_trans_probs = lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf)
 
-	for i in range(10):
-		rn = random.choice(list(lex_trans_probs))
-		print(rn)
-		print(lex_trans_probs[rn])
+	# for i in range(10):
+	# 	rn = random.choice(list(lex_trans_probs))
+	# 	print(rn)
+	# 	print(lex_trans_probs[rn])
