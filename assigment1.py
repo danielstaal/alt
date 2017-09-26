@@ -20,15 +20,17 @@ def phrase_extraction(sen1, sen2, alignments):
 		right = ""
 		for a2 in alignments:
 			if a[0] == a2[0]:
-				right += sen1_words[int(a2[1])] + " "
+				right += a2[1] + " "
+				#right += sen1_words[int(a2[1])] + " "
 			if a[1] == a2[1]:
-				left += sen2_words[int(a2[0])]  + " "
+				left += a2[0] + " "
+				#left += sen2_words[int(a2[0])]  + " "
 		right = right[:-1]
 		left = left[:-1]
 		if [left, right] not in smallest_seg:
 			smallest_seg.append([left,right])
 
-	# print(smallest_seg)
+	print(smallest_seg)
 
 	# we do not want subphrases longer than 5
 	# TODO does not work yet
@@ -51,13 +53,15 @@ def phrase_extraction(sen1, sen2, alignments):
 			aligned_words = smallest_seg[i:index] 
 			
 			for sub in aligned_words:
-				en_strings += sub[1] + " "
-				de_strings += sub[0] + " "
+				en_strings = add_string_if_it_doesnt_contain_reps(sub[1], en_strings)
+				de_strings = add_string_if_it_doesnt_contain_reps(sub[0], de_strings)
+			en_strings = translate_numbers_to_words(en_strings, sen1_words)
+			de_strings = translate_numbers_to_words(de_strings, sen2_words)
 			en_strings = en_strings[:-1]
 			de_strings = de_strings[:-1]
-			en_sub_phrases.append(en_strings)
-			de_sub_phrases.append(de_strings)
-			aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
+			if en_strings not in en_sub_phrases: en_sub_phrases.append(en_strings)
+			if de_strings not in de_sub_phrases: de_sub_phrases.append(de_strings)
+			if en_strings + ' ^ ' + de_strings not in aligned_sub_phrases: aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
 			seg_aligned_sub_phrases.append(aligned_words)
 			#print(aligned_words)
 			#print(en_strings)
@@ -69,6 +73,20 @@ def phrase_extraction(sen1, sen2, alignments):
 
 	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases
 
+def add_string_if_it_doesnt_contain_reps(substring, strings):
+	grand = True
+	for sub_number in substring.split():
+		if sub_number in strings:
+			grand = False
+			break
+	if grand: strings += substring + " "
+	return strings
+
+def translate_numbers_to_words(string, sentence_words):
+	aux_string = ""
+	for substring in string.split():
+		aux_string += sentence_words[int(substring)] + " "
+	return aux_string
 
 def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	en_dic = {}
