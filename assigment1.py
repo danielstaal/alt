@@ -55,9 +55,9 @@ def phrase_extraction(sen1, sen2, alignments):
 			for sub in aligned_words:
 				en_strings = add_string_if_it_doesnt_contain_reps(sub[1], en_strings)
 				de_strings = add_string_if_it_doesnt_contain_reps(sub[0], de_strings)
-				print sub[0]
-				print de_strings
-				print '____________'
+				#print sub[0]
+				#print de_strings
+				#print '____________'
 			en_strings = translate_numbers_to_words(en_strings, sen1_words)
 			de_strings = translate_numbers_to_words(de_strings, sen2_words)
 			en_strings = en_strings[:-1]
@@ -67,9 +67,9 @@ def phrase_extraction(sen1, sen2, alignments):
 			if en_strings + ' ^ ' + de_strings not in aligned_sub_phrases:
 				aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
 				seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
-				print en_strings + ' | ' + de_strings
-				print seg_aligned_sub_phrases[-1]
-				print '---------------------------------------------------'
+				#print en_strings + ' | ' + de_strings
+				#print seg_aligned_sub_phrases[-1]
+				#print '---------------------------------------------------'
 			#print(aligned_words)
 			#print(en_strings)
 			#print(de_strings)
@@ -124,7 +124,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[4428:4429], de_txt[4428:4429], alignments[4428:4429]):	
+	for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -260,7 +260,7 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 1)
+	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 5000)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
