@@ -28,11 +28,8 @@ def phrase_extraction(sen1, sen2, alignments):
 		if [left, right] not in smallest_seg:
 			smallest_seg.append([left,right])
 
-	# print(smallest_seg)
+	print("smallest seg: ", smallest_seg)
 
-	# we do not want subphrases longer than 5
-	# TODO does not work yet
-	#print(smallest_seg)
 	range_up_to_five = len(smallest_seg)
 
 	en_sub_phrases = []
@@ -47,12 +44,11 @@ def phrase_extraction(sen1, sen2, alignments):
 		for index in range(i+1,range_up_to_five+1):
 			de_strings = ''
 			en_strings = ''
-			# TODO make sure the longest subphrase is 5 words
 			aligned_words = smallest_seg[i:index] 
-			
 			for sub in aligned_words:
 				en_strings += sub[1] + " "
 				de_strings += sub[0] + " "
+
 			en_strings = en_strings[:-1]
 			de_strings = de_strings[:-1]
 			en_sub_phrases.append(en_strings)
