@@ -72,9 +72,9 @@ def phrase_extraction(sen1, sen2, alignments):
 			#print(en_strings)
 			#print(de_strings)
 			#print('------------------------------')
-	#print(en_sub_phrases)
-	#print(de_sub_phrases)
-	#print(aligned_sub_phrases)
+	# print(en_sub_phrases)
+	# print(de_sub_phrases)
+	# print(aligned_sub_phrases)
 
 	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases
 
@@ -122,7 +122,9 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
+	for en_sen, de_sen, alignment in zip(en_txt[1338:1339], de_txt[1338:1339], alignments[1338:1339]):	
+
+	# for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -197,7 +199,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 def translation_probabilities(en_dic,de_dic,al_dic):
 
 	# this contains translation probabilities in both directions in the shape of:
-	# trans_prob[en + ' - ' + de] = [p_en_given_de, p_de_given_en]
+	# trans_prob[en + ' ^ ' + de] = [p_en_given_de, p_de_given_en]
 	trans_probs = {}
 
 	# print(al_dic)
@@ -211,7 +213,7 @@ def translation_probabilities(en_dic,de_dic,al_dic):
 		p_de_given_en = float(counts)/en_count
 		p_en_given_de = float(counts)/de_count
 
-		trans_probs[en + ' - ' + de] = [p_en_given_de, p_de_given_en]
+		trans_probs[en + ' ^ ' + de] = [p_en_given_de, p_de_given_en]
 		# trans_probs[en + ' - ' + de] = [counts, en_count, de_count]
 
 	return trans_probs
@@ -219,7 +221,7 @@ def translation_probabilities(en_dic,de_dic,al_dic):
 def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf):
 
 	# this contains lexical translation probabilities in both directions in the shape of:
-	# lex_trans_prob[en + ' - ' + de] = [l_en_given_de, l_de_given_en]
+	# lex_trans_prob[en + ' ^ ' + de] = [l_en_given_de, l_de_given_en]
 	lex_trans_probs = {}
 
 	for pairs,counts in al_dic.items():
@@ -245,7 +247,7 @@ def lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,w
 					aux_ef += float(count_ef.get(en_word + ' ' + de_word, 0))/wf[de_word]
 				l_de_given_en *= aux_ef/len_en_split
 
-		lex_trans_probs[en + ' - ' + de] = [l_en_given_de, l_de_given_en]
+		lex_trans_probs[en + ' ^ ' + de] = [l_en_given_de, l_de_given_en]
 
 	return lex_trans_probs
 
@@ -258,20 +260,44 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 5000)
+	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 1)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
-	for i in range(10):
-	 	rn = random.choice(list(trans_probs))
-	 	print(rn)
-	 	print(trans_probs[rn])
+	# for i in range(10):
+	#  	rn = random.choice(list(trans_probs))
+	#  	print(rn)
+	#  	print(trans_probs[rn])
 	# print(en_dic)
 	print('----------------------------------------------')
 
 	lex_trans_probs = lexical_translation_probabilities(en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf)
 
-	for i in range(10):
-	 	rn = random.choice(list(lex_trans_probs))
-	 	print(rn)
-	 	print(lex_trans_probs[rn])
+	# for i in range(10):
+	#  	rn = random.choice(list(lex_trans_probs))
+	#  	print(rn)
+	#  	print(lex_trans_probs[rn])
+
+	# print(trans_probs["indeed - tatsächlich"])
+	# print(lex_trans_probs["indeed - tatsächlich"])
+
+	print(len(lex_trans_probs.keys()))
+
+	
+	# write to file
+	f = open("results", "w")
+
+	f.write("f ||| e ||| p(f|e) p(e|f) l(f|e) l(e|f) ||| freq(f) freq(e) freq(f, e)\n\n")
+
+	for pairs,counts in trans_probs.items():
+		e,d = pairs.split(" ^ ")		
+		f.write(d + " ||| " + e + " ||| ")
+		f.write(str(counts[1]) + " " + str(counts[0]) + " ")
+
+		lex_trans = lex_trans_probs[pairs]
+
+		f.write(str(lex_trans[1]) + " " + str(lex_trans[0]) + " ||| ")
+
+		f.write(str(de_dic[d]) + " " + str(en_dic[e]) + " " + str(al_dic[pairs]))
+
+		f.write("\n")

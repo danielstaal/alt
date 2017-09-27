@@ -1,0 +1,15 @@
+f ||| e ||| p(f|e) p(e|f) l(f|e) l(e|f) ||| freq(f) freq(e) freq(f, e)
+
+hier ||| here ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+hier profiliert ||| here improvements should made ||| 1.0 1.0 0.9393939393939394 1.0 ||| 1 1 1
+hier profiliert muß ||| here improvements should made ||| 1.0 1.0 0.9393939393939394 0.9090909090909092 ||| 1 1 1
+hier profiliert muß werden ||| here improvements should made be ||| 1.0 1.0 0.8170934938611707 0.6694214876033059 ||| 1 1 1
+profiliert ||| improvements should made ||| 1.0 1.0 0.9393939393939394 1.0 ||| 1 1 1
+profiliert muß ||| improvements should made ||| 1.0 1.0 0.9393939393939394 0.9090909090909092 ||| 1 1 1
+profiliert muß werden ||| improvements should made be ||| 1.0 1.0 0.8170934938611707 0.6694214876033059 ||| 1 1 1
+muß profiliert ||| should ||| 1.0 1.0 1.0 0.9090909090909092 ||| 1 1 1
+muß profiliert ||| should improvements made ||| 1.0 1.0 0.8698092031425365 0.6694214876033059 ||| 1 1 1
+muß profiliert werden ||| should improvements made be ||| 1.0 1.0 0.8698092031425365 0.6694214876033059 ||| 1 1 1
+muß profiliert ||| improvements should made ||| 1.0 1.0 0.8698092031425365 0.7363636363636364 ||| 1 1 1
+muß profiliert werden ||| improvements should made be ||| 1.0 1.0 0.8698092031425365 0.7363636363636364 ||| 1 1 1
+werden ||| be ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
