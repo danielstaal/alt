@@ -78,19 +78,29 @@ def phrase_extraction(sen1, sen2, alignments):
 			for l, language in enumerate(words_without_alignments):
 				max_l = max([int(poss) for poss in possibilities[l][0].split()])
 				min_l = min([int(poss) for poss in possibilities[l][0].split()])
-				left_word_without = -1
-				right_word_without = -1
-				for word_without_alignment in language:
+				left_word_without = []
+				right_word_without = []
+				word = 0
+				while word < len(language):
+					word_without_alignment = language[word]
 					if word_without_alignment == min_l-1:
-						left_word_without = word_without_alignment
+						left_word_without.append(word_without_alignment)
+						min_l = word_without_alignment
+						word = -1
 					elif word_without_alignment == max_l+1:
-						right_word_without = word_without_alignment
-				if left_word_without != -1:
-					possibilities[l].append(str(left_word_without)+' '+possibilities[l][0])
-				if right_word_without != -1:
-					possibilities[l].append(possibilities[l][0]+str(right_word_without)+' ')
-				if left_word_without != -1 and right_word_without != -1:
-					possibilities[l].append(str(left_word_without)+' '+possibilities[l][0]+str(right_word_without)+' ')
+						right_word_without.append(word_without_alignment)
+						max_l = word_without_alignment
+						word = -1
+					word+=1
+				left_word_without.sort()
+				right_word_without.sort()
+				if len(left_word_without) != 0:
+					possibilities[l] = add_possibilities_left(possibilities[l], left_word_without)
+				if len(right_word_without) != 0:
+					possibilities[l] = add_possibilities_right(possibilities[l], right_word_without)
+				if len(left_word_without) != 0 and len(right_word_without) != 0:
+					possibilities[l] = add_possibilities_left_right(possibilities[l], left_word_without, right_word_without)
+					#possibilities[l].append(' '.join(left_word_without)+' '+possibilities[l][0]+' '.join(right_word_without)+' ')
 			en_strings = reorder_string(possibilities[1][0])
 			de_strings = reorder_string(possibilities[0][0])
 			for de_poss in possibilities[0]:
@@ -167,6 +177,37 @@ def check_continuity(en_strings, de_strings):
     de_first = next(de_it)
     return all(a == b for a, b in enumerate(en_it, en_first + 1)) and all(a == b for a, b in enumerate(de_it, de_first + 1))
 
+def add_possibilities_left_right(possibilities_l, left_words, right_words):
+	# left_words and right_words must be sorted
+	add_left = []
+	add_right = []
+	for left_w in reversed(left_words):
+		add_left.append(str(left_w))
+		possibilities_l.append(' '.join(add_left)+' '+possibilities_l[0])
+		for right_w in right_words:
+			add_right.append(str(right_w))
+			possibilities_l.append(' '.join(add_left)+' '+possibilities_l[0]+' '.join(add_right)+' ')
+		add_right = []
+	for right_w in right_words:
+		add_right.append(str(right_w))
+		possibilities_l.append(possibilities_l[0]+' '.join(add_right)+' ')
+	return possibilities_l
+
+def add_possibilities_left(possibilities_l, left_words):
+	add_left = []
+	for left_w in reversed(left_words):
+		add_left.append(str(left_w))
+		possibilities_l.append(' '.join(add_left)+' '+possibilities_l[0])
+	return possibilities_l
+
+def add_possibilities_right(possibilities_l, right_words):
+	# left_words and right_words must be sorted
+	add_right = []
+	for right_w in right_words:
+		add_right.append(str(right_w))
+		possibilities_l.append(possibilities_l[0]+' '.join(add_right)+' ')
+	return possibilities_l
+
 def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	en_dic = {}
 	de_dic = {}
@@ -179,7 +220,7 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[1339:1340], de_txt[1339:1340], alignments[1339:1340]):	
+	for en_sen, de_sen, alignment in zip(en_txt[104:105], de_txt[104:105], alignments[104:105]):	
 
 	# for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
 		if j % 100 == 0:

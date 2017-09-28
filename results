@@ -1,47 +1,84 @@
 f ||| e ||| p(f|e) p(e|f) l(f|e) l(e|f) ||| freq(f) freq(e) freq(f, e)
 
-gibt es ||| is there ||| 1.0 1.0 0.585798816568 0.820512820513 ||| 1 1 1
-ländern , ||| countries , ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-, gibt es ||| , is there ||| 1.0 1.0 0.585798816568 0.820512820513 ||| 1 1 1
-, ||| , ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-spezielle ||| specialised ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-gibt ||| is there ||| 1.0 1.0 0.846153846154 1.0 ||| 1 1 1
-in deutschland ||| germany for ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
-, gibt es eine ||| , is there ||| 1.0 1.0 0.585798816568 0.820512820513 ||| 1 1 1
-gibt es eine spezielle rechtsprechung ||| there specialised jurisdiction ||| 1.0 1.0 1.0 0.923076923077 ||| 1 1 1
-gibt es eine ||| is there ||| 1.0 1.0 0.585798816568 0.820512820513 ||| 1 1 1
-nur ||| only ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-in wenigen ländern ||| in certain countries ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-in ||| for ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
-nur in ||| only in ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-zum beispiel in ||| for example ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
-spezielle rechtsprechung . ||| specialised jurisdiction . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-spezielle rechtsprechung ||| specialised jurisdiction ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-wenigen ||| certain ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-zum beispiel ||| example ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-nur in wenigen ländern , ||| only in certain countries , ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-eine spezielle ||| specialised ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-, gibt ||| , is there ||| 1.0 1.0 0.846153846154 1.0 ||| 1 1 1
-deutschland ||| germany ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-ländern ||| countries ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-eine spezielle rechtsprechung . ||| specialised jurisdiction . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-rechtsprechung ||| jurisdiction ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-nur in wenigen ||| only in certain ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-gibt es eine spezielle rechtsprechung ||| is there specialised jurisdiction ||| 1.0 1.0 0.585798816568 0.757396449704 ||| 1 1 1
-zum beispiel in deutschland ||| germany for example ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
-gibt es eine ||| there ||| 1.0 1.0 1.0 0.923076923077 ||| 1 1 1
-nur in wenigen ländern ||| only in certain countries ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-zum beispiel in deutschland , ||| germany for example , ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
-in ||| in ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-in wenigen ländern , ||| in certain countries , ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-, gibt es eine spezielle ||| , is there specialised ||| 1.0 1.0 0.585798816568 0.757396449704 ||| 1 1 1
-rechtsprechung . ||| jurisdiction . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+streit mit ||| wish to quarrel with ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wir sind der meinung , ||| we believe that the ||| 1.0 1.0 0.0384733764235 0.2109375 ||| 1 1 1
+an ||| at all ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, müssen kommission und parlament ||| commission and parliament need to ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+der meinung , ||| that the ||| 1.0 1.0 0.315789473684 0.5625 ||| 1 1 1
+, ||| , ||| 1.0 1.0 0.157894736842 0.333333333333 ||| 1 1 1
+wir ||| after all , we ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+geht ||| tread ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+gemeinsamen weg gehen . ||| path . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+und parlament einen gemeinsamen ||| and parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+es eben geht ||| to tread the same ||| 1.0 1.0 1.0 0.4375 ||| 1 1 1
+und parlament ||| and parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+weg gehen . ||| path . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+mit ||| with ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+meinung , ||| believe that ||| 1.0 1.0 0.219298245614 1.0 ||| 1 1 1
+streit mit der ||| wish to quarrel with the ||| 1.0 1.0 1.0 0.5625 ||| 1 1 1
+wir wollen ja ||| after all , we do ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+parlament ||| parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+an sich ||| at all ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+und ||| and ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+es eben geht ||| tread the same ||| 1.0 1.0 1.0 0.4375 ||| 1 1 1
+wir ||| all , we ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, ||| all possible , ||| 1.0 1.0 0.157894736842 0.333333333333 ||| 1 1 1
+kommission und parlament einen gemeinsamen ||| commission and parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+der kommission ||| the commission ||| 1.0 1.0 1.0 0.5625 ||| 1 1 1
+der meinung , ||| believe that the ||| 1.0 1.0 0.0692520775623 0.5625 ||| 1 1 1
+mit der kommission ||| with the commission ||| 1.0 1.0 1.0 0.5625 ||| 1 1 1
+wir wollen ja ||| all , we do ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+es eben geht , ||| to tread the same ||| 1.0 1.0 1.0 0.4375 ||| 1 1 1
+sich keinen streit mit ||| not wish to quarrel with ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wir wollen ja ||| we do ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wir ||| , we ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+und parlament einen ||| and parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wollen ja ||| do ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+parlament einen gemeinsamen ||| parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+an sich ||| at all possible ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+keinen streit ||| not wish to quarrel ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wir ||| we ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, müssen ||| need ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wir wollen ja ||| , we do ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+müssen ||| need ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+an ||| at ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+einen gemeinsamen weg gehen ||| path ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+gemeinsamen weg gehen ||| path ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+müssen ||| need to ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+an ||| at all possible ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+an sich ||| at ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, ||| possible , ||| 1.0 1.0 0.157894736842 0.333333333333 ||| 1 1 1
+, müssen ||| need to ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+geht , ||| tread ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+müssen kommission und parlament einen ||| commission and parliament need ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+einen gemeinsamen weg gehen . ||| path . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+es eben geht , müssen ||| need to tread the same ||| 1.0 1.0 1.0 0.4375 ||| 1 1 1
+geht , ||| to tread ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+eben ||| same ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wenn ||| if ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+der ||| the ||| 1.0 1.0 1.0 0.5625 ||| 1 1 1
+, müssen kommission und parlament ||| commission and parliament need ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+kommission ||| commission ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+es eben ||| the same ||| 1.0 1.0 1.0 0.4375 ||| 1 1 1
+sondern ||| ; ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+keinen ||| not ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+keinen streit mit ||| not wish to quarrel with ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+kommission und parlament einen ||| commission and parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+sich keinen streit ||| not wish to quarrel ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+meinung , ||| that ||| 1.0 1.0 0.315789473684 1.0 ||| 1 1 1
 . ||| . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-in wenigen ||| in certain ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
-gibt es ||| there ||| 1.0 1.0 1.0 0.923076923077 ||| 1 1 1
-eine spezielle rechtsprechung ||| specialised jurisdiction ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-wenigen ländern ||| certain countries ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-wenigen ländern , ||| certain countries , ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-, zum beispiel in deutschland ||| , germany for example ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
-gibt es eine spezielle ||| there specialised ||| 1.0 1.0 1.0 0.923076923077 ||| 1 1 1
-gibt es eine spezielle ||| is there specialised ||| 1.0 1.0 0.585798816568 0.757396449704 ||| 1 1 1
+kommission und parlament ||| commission and parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+es ||| the ||| 1.0 1.0 1.0 0.4375 ||| 1 1 1
+streit ||| wish to quarrel ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+parlament einen ||| parliament ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+müssen kommission und parlament ||| commission and parliament need to ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+sich keinen ||| not ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+sind der meinung , ||| believe that the ||| 1.0 1.0 0.0384733764235 0.2109375 ||| 1 1 1
+weg gehen ||| path ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+es eben geht , ||| tread the same ||| 1.0 1.0 1.0 0.4375 ||| 1 1 1
+müssen kommission und parlament einen ||| commission and parliament need to ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+geht , müssen ||| need to tread ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+müssen kommission und parlament ||| commission and parliament need ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+geht ||| to tread ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+mit der ||| with the ||| 1.0 1.0 1.0 0.5625 ||| 1 1 1
+kommission und ||| commission and ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
