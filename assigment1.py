@@ -47,7 +47,7 @@ def phrase_extraction(sen1, sen2, alignments):
 					pass_numbers += 1
 					words_without_alignments[language_index	].append(word_as_num)
 	#print words_with_alignments
-	print words_without_alignments
+	#print words_without_alignments
 
 
 	len_smallest_seg = len(smallest_seg)
@@ -220,9 +220,8 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 
 	j = 0
 	k = 0
-	for en_sen, de_sen, alignment in zip(en_txt[104:105], de_txt[104:105], alignments[104:105]):	
-
-	# for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
+	#for en_sen, de_sen, alignment in zip(en_txt[104:105], de_txt[104:105], alignments[104:105]):
+	for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
 		if j % 100 == 0:
 			print(j/len(en_txt))
 		j += 1
@@ -358,7 +357,7 @@ if __name__ == '__main__':
 	de_txt = d.readlines()
 	alignments = a.readlines()
 
-	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 1)
+	en_dic,de_dic,al_dic,aligns_dic,count_ef,we,wf = create_dicts(en_txt,de_txt,alignments, 50000)
 
 	trans_probs = translation_probabilities(en_dic,de_dic,al_dic)
 
