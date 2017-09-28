@@ -1,9 +1,41 @@
 f ||| e ||| p(f|e) p(e|f) l(f|e) l(e|f) ||| freq(f) freq(e) freq(f, e)
 
-muß profiliert ||| should ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-muß profiliert werden ||| improvements should be made ||| 1.0 1.0 0.578703703704 1.0 ||| 1 1 1
+gibt es ||| is there ||| 1.0 1.0 0.58703125 0.771428571429 ||| 1 1 1
+ländern , ||| countries , ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, gibt es ||| , is there ||| 1.0 1.0 0.58703125 0.771428571429 ||| 1 1 1
+, ||| , ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+spezielle ||| specialised ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+gibt ||| is there ||| 1.0 1.0 0.85 1.0 ||| 1 1 1
+in deutschland ||| germany for ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
+gibt es eine spezielle rechtsprechung ||| there specialised jurisdiction ||| 1.0 1.0 1.0 0.9 ||| 1 1 1
+nur ||| only ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+in wenigen ländern ||| in certain countries ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+in ||| for ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
+nur in ||| only in ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+zum beispiel in ||| for example ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
+spezielle rechtsprechung . ||| specialised jurisdiction . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+spezielle rechtsprechung ||| specialised jurisdiction ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wenigen ||| certain ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+zum beispiel ||| example ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+nur in wenigen ländern , ||| only in certain countries , ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+, gibt ||| , is there ||| 1.0 1.0 0.85 1.0 ||| 1 1 1
+deutschland ||| germany ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+ländern ||| countries ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+rechtsprechung ||| jurisdiction ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+nur in wenigen ||| only in certain ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+gibt es eine spezielle rechtsprechung ||| is there specialised jurisdiction ||| 1.0 1.0 0.58703125 0.694285714286 ||| 1 1 1
+zum beispiel in deutschland ||| germany for example ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
+nur in wenigen ländern ||| only in certain countries ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+zum beispiel in deutschland , ||| germany for example , ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
+in ||| in ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+in wenigen ländern , ||| in certain countries , ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+, gibt es eine spezielle ||| , is there specialised ||| 1.0 1.0 0.58703125 0.694285714286 ||| 1 1 1
+rechtsprechung . ||| jurisdiction . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
 . ||| . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-werden ||| be ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
-muß profiliert werden . ||| improvements should be made . ||| 1.0 1.0 0.578703703704 1.0 ||| 1 1 1
-hier muß profiliert werden ||| here improvements should be made ||| 1.0 1.0 0.578703703704 1.0 ||| 1 1 1
-hier ||| here ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+in wenigen ||| in certain ||| 1.0 1.0 0.571428571429 1.0 ||| 1 1 1
+gibt es ||| there ||| 1.0 1.0 1.0 0.9 ||| 1 1 1
+wenigen ländern ||| certain countries ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+wenigen ländern , ||| certain countries , ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, zum beispiel in deutschland ||| , germany for example ||| 1.0 1.0 0.428571428571 1.0 ||| 1 1 1
+gibt es eine spezielle ||| there specialised ||| 1.0 1.0 1.0 0.9 ||| 1 1 1
+gibt es eine spezielle ||| is there specialised ||| 1.0 1.0 0.58703125 0.694285714286 ||| 1 1 1
