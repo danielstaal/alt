@@ -66,47 +66,56 @@ def phrase_extraction(sen1, sen2, alignments):
 
 			en_strings = add_string_if_it_doesnt_contain_reps(smallest_seg[index][1], en_strings)
 			de_strings = add_string_if_it_doesnt_contain_reps(smallest_seg[index][0], de_strings)
-			possibilities = [[de_strings, en_strings]]
+			possibilities = [[de_strings], [en_strings]]
+			# add middle words_without_alignments (always added)
 			for l, language in enumerate(words_without_alignments):
-				max_l = max([int(poss) for poss in possibilities[0][l].split()])
-				min_l = min([int(poss) for poss in possibilities[0][l].split()])
+				max_l = max([int(poss) for poss in possibilities[l][0].split()])
+				min_l = min([int(poss) for poss in possibilities[l][0].split()])
 				for word_without_alignment in language:
 					if word_without_alignment < max_l and word_without_alignment > min_l:
-						possibilities[0][l] = add_string_if_it_doesnt_contain_reps(str(word_without_alignment), possibilities[0][l])
-			
-			'''for l, language in enumerate(words_without_alignments):
-													for word_without_alignment in language:
-														max_l = max(possibilities[0][l].split())
-														min_l = min(possibilities[0][l].split())
-														elif word_without_alignment == max_l+1:
-									
-														elif word_without_alignment > max(possibilities[0][l])+1:
-															break
-														elif word_without_alignment == max_l+1:
-									
-														elif word_without_alignment > max(possibilities[0][l])+1:
-															break'''
-			# make sure the longest subphrase is 5 words
-			if len(possibilities[0][1].split()) <= 5 and len(possibilities[0][0].split()) <= 5:
-				en_strings = reorder_string(possibilities[0][1])
-				de_strings = reorder_string(possibilities[0][0])
-				if check_continuity(en_strings, de_strings):
-					aux_en_strings = translate_numbers_to_words(en_strings, sen1_words)
-					aux_de_strings = translate_numbers_to_words(de_strings, sen2_words)
-					aux_en_strings = aux_en_strings[:-1]
-					aux_de_strings = aux_de_strings[:-1]
-					if aux_en_strings not in en_sub_phrases: en_sub_phrases.append(aux_en_strings)
-					if aux_de_strings not in de_sub_phrases: de_sub_phrases.append(aux_de_strings)
-					if aux_en_strings + ' ^ ' + aux_de_strings not in aligned_sub_phrases:
-						aligned_sub_phrases.append(aux_en_strings + ' ^ ' + aux_de_strings)
-						seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
-						#print aux_en_strings + ' | ' + aux_de_strings
-						#print seg_aligned_sub_phrases[-1]
-						#print '---------------------------------------------------'
-					#print(aligned_words)
-					#print(aux_en_strings)
-					#print(aux_de_strings)
-					#print('------------------------------')
+						possibilities[l][0] = add_string_if_it_doesnt_contain_reps(str(word_without_alignment), possibilities[l][0])
+			# add words_without_alignments on the borders (all possible combinations)
+			for l, language in enumerate(words_without_alignments):
+				max_l = max([int(poss) for poss in possibilities[l][0].split()])
+				min_l = min([int(poss) for poss in possibilities[l][0].split()])
+				left_word_without = -1
+				right_word_without = -1
+				for word_without_alignment in language:
+					if word_without_alignment == min_l-1:
+						left_word_without = word_without_alignment
+					elif word_without_alignment == max_l+1:
+						right_word_without = word_without_alignment
+				if left_word_without != -1:
+					possibilities[l].append(str(left_word_without)+' '+possibilities[l][0])
+				if right_word_without != -1:
+					possibilities[l].append(possibilities[l][0]+str(right_word_without)+' ')
+				if left_word_without != -1 and right_word_without != -1:
+					possibilities[l].append(str(left_word_without)+' '+possibilities[l][0]+str(right_word_without)+' ')
+			en_strings = reorder_string(possibilities[1][0])
+			de_strings = reorder_string(possibilities[0][0])
+			for de_poss in possibilities[0]:
+				for en_poss in possibilities[1]:
+					# make sure the longest subphrase is 5 words
+					if len(en_poss.split()) <= 5 and len(de_poss.split()) <= 5:
+						aux_en_strings = reorder_string(en_poss)
+						aux_de_strings = reorder_string(de_poss)
+						if check_continuity(aux_en_strings, aux_de_strings):
+							aux_en_strings = translate_numbers_to_words(aux_en_strings, sen1_words)
+							aux_de_strings = translate_numbers_to_words(aux_de_strings, sen2_words)
+							aux_en_strings = aux_en_strings[:-1]
+							aux_de_strings = aux_de_strings[:-1]
+							if aux_en_strings not in en_sub_phrases: en_sub_phrases.append(aux_en_strings)
+							if aux_de_strings not in de_sub_phrases: de_sub_phrases.append(aux_de_strings)
+							if aux_en_strings + ' ^ ' + aux_de_strings not in aligned_sub_phrases:
+								aligned_sub_phrases.append(aux_en_strings + ' ^ ' + aux_de_strings)
+								seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
+								#print aux_en_strings + ' | ' + aux_de_strings
+								#print seg_aligned_sub_phrases[-1]
+								#print '---------------------------------------------------'
+							#print(aligned_words)
+							#print(aux_en_strings)
+							#print(aux_de_strings)
+							#print('------------------------------')
 	# print(en_sub_phrases)
 	# print(de_sub_phrases)
 	# print(aligned_sub_phrases)
