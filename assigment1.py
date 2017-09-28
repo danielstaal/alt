@@ -31,47 +31,49 @@ def phrase_extraction(sen1, sen2, alignments):
 		if [left, right] not in smallest_seg:
 			smallest_seg.append([left,right])
 
-	range_up_to_five = len(smallest_seg)
-
+	len_smallest_seg = len(smallest_seg)
+	#print smallest_seg
 	en_sub_phrases = []
 	de_sub_phrases = []
 	aligned_sub_phrases = []
 	seg_aligned_sub_phrases = []
 	
 	for i, element in enumerate(smallest_seg):
-		if range_up_to_five - i > 5:
-			range_up_to_five = i + 5
-
-		for index in range(i+1,range_up_to_five+1):
-			de_strings = ''
-			en_strings = ''
+		en_strings = ''
+		de_strings = ''
+		for index in range(i, min(i+5, len_smallest_seg)):
 
 			# TODO make sure the longest subphrase is 5 words
-			aligned_words = smallest_seg[i:index]
+			aligned_words = smallest_seg[i:index+1]
 
-			for sub in aligned_words:
+			'''for sub in aligned_words:
 				en_strings = add_string_if_it_doesnt_contain_reps(sub[1], en_strings)
 				de_strings = add_string_if_it_doesnt_contain_reps(sub[0], de_strings)
 				#print sub[0]
 				#print de_strings
-				#print '____________'
-			en_strings = translate_numbers_to_words(en_strings, sen1_words)
-			de_strings = translate_numbers_to_words(de_strings, sen2_words)
+				#print '____________'''
+			en_strings = add_string_if_it_doesnt_contain_reps(smallest_seg[index][1], en_strings)
+			de_strings = add_string_if_it_doesnt_contain_reps(smallest_seg[index][0], de_strings)
+			en_strings = reorder(en_strings)
+			de_strings = reorder(de_strings)
+			if check_continuity(en_strings, de_strings):
+				aux_en_strings = translate_numbers_to_words(en_strings, sen1_words)
+				aux_de_strings = translate_numbers_to_words(de_strings, sen2_words)
 
-			en_strings = en_strings[:-1]
-			de_strings = de_strings[:-1]
-			if en_strings not in en_sub_phrases: en_sub_phrases.append(en_strings)
-			if de_strings not in de_sub_phrases: de_sub_phrases.append(de_strings)
-			if en_strings + ' ^ ' + de_strings not in aligned_sub_phrases:
-				aligned_sub_phrases.append(en_strings + ' ^ ' + de_strings)
-				seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
-				#print en_strings + ' | ' + de_strings
-				#print seg_aligned_sub_phrases[-1]
-				#print '---------------------------------------------------'
-			#print(aligned_words)
-			#print(en_strings)
-			#print(de_strings)
-			#print('------------------------------')
+				aux_en_strings = aux_en_strings[:-1]
+				aux_de_strings = aux_de_strings[:-1]
+				if aux_en_strings not in en_sub_phrases: en_sub_phrases.append(aux_en_strings)
+				if aux_de_strings not in de_sub_phrases: de_sub_phrases.append(aux_de_strings)
+				if aux_en_strings + ' ^ ' + aux_de_strings not in aligned_sub_phrases:
+					aligned_sub_phrases.append(aux_en_strings + ' ^ ' + aux_de_strings)
+					seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
+					print aux_en_strings + ' | ' + aux_de_strings
+					print seg_aligned_sub_phrases[-1]
+					print '---------------------------------------------------'
+				#print(aligned_words)
+				#print(aux_en_strings)
+				#print(aux_de_strings)
+				#print('------------------------------')
 	# print(en_sub_phrases)
 	# print(de_sub_phrases)
 	# print(aligned_sub_phrases)
@@ -79,18 +81,11 @@ def phrase_extraction(sen1, sen2, alignments):
 	return en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases
 
 def add_string_if_it_doesnt_contain_reps(substring, strings):
-	'''grand = True
-	for sub_number in substring.split():
-		if sub_number in strings.split():
-			grand = False
-			break
-	if grand: strings += substring + " "'''
 	for sub_number in substring.split():
 		if sub_number in strings.split():
 			pass
 		else:
-			strings += sub_number + " "
-	return strings
+			strings += sub_number + ' '
 	return strings
 
 def translate_numbers_to_words(string, sentence_words):
@@ -109,6 +104,18 @@ def translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words):
 				elif j == 1: aux_string += sen1_words[int(substring)] + " "
 			aux[i][j] = aux_string[:-1]
 	return aux
+
+def reorder(strings):
+	aux_string = strings.split()
+	aux_string.sort()
+	return " ".join(aux_string) + " "
+
+def check_continuity(en_strings, de_strings):
+    en_it = (int(x, 16) for x in en_strings.split())
+    en_first = next(en_it)
+    de_it = (int(x, 16) for x in de_strings.split())
+    de_first = next(de_it)
+    return all(a == b for a, b in enumerate(en_it, en_first + 1)) and all(a == b for a, b in enumerate(de_it, de_first + 1))
 
 def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	en_dic = {}
@@ -278,8 +285,8 @@ if __name__ == '__main__':
 	#  	print(rn)
 	#  	print(lex_trans_probs[rn])
 
-	# print(trans_probs["indeed - tatsächlich"])
-	# print(lex_trans_probs["indeed - tatsächlich"])
+	# print(trans_probs["indeed - tatsachlich"])
+	# print(lex_trans_probs["indeed - tatsachlich"])
 
 	print(len(lex_trans_probs.keys()))
 
