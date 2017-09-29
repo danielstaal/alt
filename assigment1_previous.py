@@ -8,7 +8,7 @@ from copy import deepcopy
 # 0-0 1-1 1-2 2-3
 
 # alignments = [[0,0], [1,1], [1,2], [2,3]]
-def phrase_extraction(sen1, sen2, alignments, en_sub_phrases, de_sub_phrases):
+def phrase_extraction(sen1, sen2, alignments):
 	sen1_words = sen1.split(" ")
 	sen2_words = sen2.split(" ")
 	#print(sen1)
@@ -52,8 +52,8 @@ def phrase_extraction(sen1, sen2, alignments, en_sub_phrases, de_sub_phrases):
 
 	len_smallest_seg = len(smallest_seg)
 	#print smallest_seg
-	#en_sub_phrases = {}
-	#de_sub_phrases = {}
+	en_sub_phrases = []
+	de_sub_phrases = []
 	aligned_sub_phrases = []
 	seg_aligned_sub_phrases = []
 	
@@ -114,10 +114,8 @@ def phrase_extraction(sen1, sen2, alignments, en_sub_phrases, de_sub_phrases):
 							aux_de_strings = translate_numbers_to_words(aux_de_strings, sen2_words)
 							aux_en_strings = aux_en_strings[:-1]
 							aux_de_strings = aux_de_strings[:-1]
-							en_sub_phrases[aux_en_strings] = en_sub_phrases.get(aux_en_strings, 0) + 1
-							de_sub_phrases[aux_de_strings] = de_sub_phrases.get(aux_de_strings, 0) + 1
-							#if aux_en_strings not in en_sub_phrases: en_sub_phrases.append(aux_en_strings)
-							#if aux_de_strings not in de_sub_phrases: de_sub_phrases.append(aux_de_strings)
+							if aux_en_strings not in en_sub_phrases: en_sub_phrases.append(aux_en_strings)
+							if aux_de_strings not in de_sub_phrases: de_sub_phrases.append(aux_de_strings)
 							if aux_en_strings + ' ^ ' + aux_de_strings not in aligned_sub_phrases:
 								aligned_sub_phrases.append(aux_en_strings + ' ^ ' + aux_de_strings)
 								seg_aligned_sub_phrases.append(translate_numbers_to_words_aligned(aligned_words, sen1_words, sen2_words))
@@ -223,18 +221,17 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 	j = 0
 	k = 0
 	#for en_sen, de_sen, alignment in zip(en_txt[104:105], de_txt[104:105], alignments[104:105]):
-	#for en_sen, de_sen, alignment in zip(en_txt[74:75], de_txt[74:75], alignments[74:75]):
-	for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):	
+	#for en_sen, de_sen, alignment in zip(en_txt[:no_of_sentences], de_txt[:no_of_sentences], alignments[:no_of_sentences]):
+	for en_sen, de_sen, alignment in zip(en_txt[74:75], de_txt[74:75], alignments[74:75]):
 		if j % 100 == 0:
-			print(float(j)/len(en_txt))
+			print(j/len(en_txt))
 		j += 1
 
 		# alignments = [[0,0], [1,1], [1,2], [2,3]]
 		alignment = alignment.split()#.split('-')
 		for i, el in enumerate(alignment):
 			alignment[i] = el.split('-')
-		#en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases = phrase_extraction(en_sen[:-1], de_sen[:-1], alignment)
-		en_dic, de_dic, aligned_sub_phrases, seg_aligned_sub_phrases = phrase_extraction(en_sen[:-1], de_sen[:-1], alignment, en_dic, de_dic)
+		en_sub_phrases, de_sub_phrases, aligned_sub_phrases, seg_aligned_sub_phrases = phrase_extraction(en_sen[:-1], de_sen[:-1], alignment)
 		
 		# if k == 0:
 		# 	print(en_sub_phrases)
@@ -242,16 +239,16 @@ def create_dicts(en_txt,de_txt,alignments, no_of_sentences=50000):
 		# 	print(aligned_sub_phrases)
 		# 	k += 1
 
-		#for en in en_sub_phrases:
-		#	if en in en_dic:
-		#		en_dic[en] += 1
-		#	else:
-		#		en_dic[en] = 1
-		#for de in de_sub_phrases:
-		#	if de in de_dic:
-		#		de_dic[de] += 1
-		#	else:
-		#		de_dic[de] = 1
+		for en in en_sub_phrases:
+			if en in en_dic:
+				en_dic[en] += 1
+			else:
+				en_dic[en] = 1
+		for de in de_sub_phrases:
+			if de in de_dic:
+				de_dic[de] += 1
+			else:
+				de_dic[de] = 1
 		for al, alignments in zip(aligned_sub_phrases, seg_aligned_sub_phrases):
 			if al in en_de_dic:
 				en_de_dic["".join(al)] += 1
@@ -386,7 +383,7 @@ if __name__ == '__main__':
 
 	
 	# write to file
-	f = open("results", "w")
+	f = open("results_prev", "w")
 
 	f.write("f ||| e ||| p(f|e) p(e|f) l(f|e) l(e|f) ||| freq(f) freq(e) freq(f, e)\n\n")
 

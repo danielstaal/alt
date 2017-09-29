@@ -1,0 +1,88 @@
+f ||| e ||| p(f|e) p(e|f) l(f|e) l(e|f) ||| freq(f) freq(e) freq(f, e)
+
+legislative ||| legislative ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+das nach den verträgen ||| in accordance with the treaties ||| 0.5 1.0 0.782608695652 0.863636363636 ||| 1 2 1
+das nach ||| in accordance with ||| 0.25 0.166666666667 0.782608695652 1.0 ||| 6 4 1
+die kommission ein organ ist ||| the commission is a body ||| 1.0 1.0 1.0 0.0867768595041 ||| 1 1 1
+das ||| initiative in ||| 0.5 0.333333333333 0.782608695652 1.0 ||| 3 2 1
+in den ||| for the ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+, das ||| in ||| 0.5 0.5 0.782608695652 1.0 ||| 2 2 1
+und somit grundlegend ||| and , therefore , basically ||| 1.0 1.0 1.66666666667 1.0 ||| 1 1 1
+in ||| for ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+und legislative tätigkeit ||| and legislative activity ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, das ||| initiative in ||| 0.5 0.5 0.782608695652 1.0 ||| 2 2 1
+den ||| with the ||| 1.0 0.333333333333 1.0 0.863636363636 ||| 3 1 1
+ein organ ||| a body ||| 1.0 1.0 1.0 0.636363636364 ||| 1 1 1
+diese zusage ||| this commitment ||| 1.0 1.0 1.0 0.6 ||| 1 1 1
+kommission ||| commission ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+grundlegend ||| basically ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, das nach ||| initiative in accordance with ||| 0.5 0.166666666667 0.782608695652 1.0 ||| 6 2 1
+. ||| . ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+nach ||| accordance with ||| 1.0 0.5 1.0 1.0 ||| 2 1 1
+die ||| the ||| 0.333333333333 1.0 1.0 0.136363636364 ||| 1 3 1
+legislative tätigkeit ||| legislative activity ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+diese ||| this ||| 0.5 1.0 1.0 0.6 ||| 1 2 1
+von ||| of initiative ||| 1.0 0.5 1.0 1.0 ||| 2 1 1
+, das nach ||| in accordance ||| 0.5 0.166666666667 0.782608695652 1.0 ||| 6 2 1
+in den nächsten fünf jahren ||| for the next five years ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+, das nach den ||| initiative in accordance with the ||| 0.5 0.5 0.782608695652 0.863636363636 ||| 2 2 1
+tätigkeit ||| activity ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+das initiativmonopol besitzt ||| a monopoly ||| 0.333333333333 0.1 0.0279123345936 0.0793388429752 ||| 10 3 1
+in den nächsten ||| for the next ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+den nächsten fünf jahren ||| the next five years ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+das ||| a monopoly ||| 0.333333333333 0.333333333333 0.195652173913 0.363636363636 ||| 3 3 1
+politische und legislative tätigkeit ||| political and legislative activity ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+ist ||| is ||| 0.333333333333 0.5 1.0 1.0 ||| 2 3 1
+zusage ist ||| commitment is ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+die kommission ||| the commission ||| 1.0 1.0 1.0 0.136363636364 ||| 1 1 1
+, das nach den ||| in accordance with the ||| 0.5 0.5 0.782608695652 0.863636363636 ||| 2 2 1
+den nächsten fünf ||| the next five ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+das nach den ||| initiative in accordance with the ||| 0.5 0.5 0.782608695652 0.863636363636 ||| 2 2 1
+den verträgen ||| the treaties ||| 1.0 0.5 1.0 0.863636363636 ||| 2 1 1
+organ ||| body ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+politische und ||| political and ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+das nach ||| initiative in accordance ||| 0.25 0.166666666667 0.782608695652 1.0 ||| 6 4 1
+, das nach den verträgen ||| in accordance with the treaties ||| 0.5 1.0 0.782608695652 0.863636363636 ||| 1 2 1
+von ||| of ||| 1.0 0.5 1.0 1.0 ||| 2 1 1
+zusage ||| commitment ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+nach den verträgen ||| accordance with the treaties ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+fünf jahren ||| five years ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+gestaltet ||| dictates ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+, das nach ||| in accordance with ||| 0.25 0.166666666667 0.782608695652 1.0 ||| 6 4 1
+, das nach ||| initiative in accordance ||| 0.25 0.166666666667 0.782608695652 1.0 ||| 6 4 1
+kommission ein organ ist , ||| commission is a body ||| 0.5 1.0 1.0 0.636363636364 ||| 1 2 1
+somit grundlegend ||| , therefore , basically ||| 1.0 1.0 1.66666666667 1.0 ||| 1 1 1
+das nach den ||| in accordance with the ||| 0.5 0.5 0.782608695652 0.863636363636 ||| 2 2 1
+verträgen ||| treaties ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+in den nächsten fünf ||| for the next five ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+kommission ein organ ist ||| commission is a body ||| 0.5 1.0 1.0 0.636363636364 ||| 1 2 1
+den nächsten ||| the next ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+den ||| the ||| 0.333333333333 0.333333333333 1.0 0.863636363636 ||| 3 3 1
+das nach ||| initiative in accordance with ||| 0.5 0.166666666667 0.782608695652 1.0 ||| 6 2 1
+das initiativmonopol ||| with a monopoly ||| 0.125 1.0 0.146739130435 0.0342245989305 ||| 1 8 1
+parlaments ||| parliament 's ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+nächsten fünf jahren ||| next five years ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+nach den ||| accordance with the ||| 1.0 1.0 1.0 0.863636363636 ||| 1 1 1
+jahren ||| years ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+fünf ||| five ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+und somit ||| and , therefore , ||| 1.0 1.0 1.66666666667 1.0 ||| 1 1 1
+das nach ||| in accordance ||| 0.5 0.166666666667 0.782608695652 1.0 ||| 6 2 1
+das ||| in ||| 0.5 0.333333333333 0.782608695652 1.0 ||| 3 2 1
+und ||| and ||| 0.5 0.5 1.0 1.0 ||| 2 2 1
+das initiativmonopol besitzt ||| with a monopoly ||| 0.125 0.1 0.0209342509452 0.0074671852212 ||| 10 8 1
+dieses parlaments ||| this parliament 's ||| 1.0 1.0 1.0 0.4 ||| 1 1 1
+nach ||| accordance ||| 1.0 0.5 1.0 1.0 ||| 2 1 1
+und legislative ||| and legislative ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+politische und legislative ||| political and legislative ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+ein ||| a ||| 1.0 1.0 1.0 0.636363636364 ||| 1 1 1
+ein organ ist ||| is a body ||| 0.5 1.0 1.0 0.636363636364 ||| 1 2 1
+ein organ ist , ||| is a body ||| 0.5 1.0 1.0 0.636363636364 ||| 1 2 1
+den verträgen ||| with the treaties ||| 1.0 0.5 1.0 0.863636363636 ||| 2 1 1
+das initiativmonopol besitzt ||| monopoly ||| 1.0 0.1 0.217391304348 0.8 ||| 10 1 1
+somit ||| , therefore , ||| 1.0 1.0 1.66666666667 1.0 ||| 1 1 1
+diese zusage ist ||| this commitment is ||| 1.0 1.0 1.0 0.6 ||| 1 1 1
+nächsten ||| next ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+dieses ||| this ||| 0.5 1.0 1.0 0.4 ||| 1 2 1
+nächsten fünf ||| next five ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
+ist , ||| is ||| 0.333333333333 1.0 1.0 1.0 ||| 1 3 1
+politische ||| political ||| 1.0 1.0 1.0 1.0 ||| 1 1 1
